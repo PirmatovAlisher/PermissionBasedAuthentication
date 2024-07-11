@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PermissionBasedAuthentication.Context;
+using PermissionBasedAuthentication.GenericRepositories;
+using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Extensions
 {
@@ -11,6 +13,9 @@ namespace PermissionBasedAuthentication.Extensions
 			{
 				opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 			});
+
+			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+			services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
 			return services;
 		}
