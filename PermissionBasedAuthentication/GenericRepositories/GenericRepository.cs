@@ -8,7 +8,7 @@ namespace PermissionBasedAuthentication.GenericRepositories
 		private readonly CustomContext _customContext;
 		private readonly DbSet<TEntity> _entity;
 
-		public GenericRepository(CustomContext customContext, DbSet<TEntity> entity)
+		public GenericRepository(CustomContext customContext)
 		{
 			_customContext = customContext;
 			_entity = _customContext.Set<TEntity>();

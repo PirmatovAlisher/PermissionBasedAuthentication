@@ -35,7 +35,7 @@ namespace PermissionBasedAuthentication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -71,7 +71,7 @@ namespace PermissionBasedAuthentication.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -110,7 +110,7 @@ namespace PermissionBasedAuthentication.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("ProductFeatures");
+                    b.ToTable("ProductFeatures", (string)null);
 
                     b.HasData(
                         new
@@ -137,7 +137,7 @@ namespace PermissionBasedAuthentication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("PermissionBasedAuthentication.Models.Entity.User", b =>
@@ -162,7 +162,7 @@ namespace PermissionBasedAuthentication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("PermissionBasedAuthentication.Models.Entity.UserRole", b =>
@@ -185,7 +185,7 @@ namespace PermissionBasedAuthentication.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("PermissionBasedAuthentication.Models.Entity.Product", b =>
