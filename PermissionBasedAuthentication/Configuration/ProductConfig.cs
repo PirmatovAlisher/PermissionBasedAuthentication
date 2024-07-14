@@ -9,6 +9,7 @@ namespace PermissionBasedAuthentication.Configuration
 		public void Configure(EntityTypeBuilder<Product> builder)
 		{
 			builder.Property(x => x.Name).HasMaxLength(50);
+			builder.Navigation(x => x.ProductFeature).AutoInclude();
 			builder.HasData(new Product
 			{
 				Id = 1,
