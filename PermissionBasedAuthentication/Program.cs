@@ -33,7 +33,7 @@ namespace PermissionBasedAuthentication
 
 			app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Category}/{action=GetAllCategories}/{id?}");
+				pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 			app.Run();
 		}
