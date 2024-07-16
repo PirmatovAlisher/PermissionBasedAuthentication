@@ -2,6 +2,8 @@
 using PermissionBasedAuthentication.Context;
 using PermissionBasedAuthentication.GenericRepositories;
 using PermissionBasedAuthentication.Services;
+using PermissionBasedAuthentication.Services.UserService;
+using System.Reflection;
 
 namespace PermissionBasedAuthentication.Extensions
 {
@@ -14,8 +16,10 @@ namespace PermissionBasedAuthentication.Extensions
 				opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 			});
 
+			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+			services.AddScoped<IUserService, UserService>();
 
 			return services;
 		}

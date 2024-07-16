@@ -14,18 +14,18 @@ namespace PermissionBasedAuthentication.Services
 			_repository = repository;
 		}
 
-		public void CreateEntity(TEntity entity)
+		public virtual void CreateEntity(TEntity entity)
 		{
 			_repository.CreateItem(entity);
 		}
 
-		public void DeleteEntity(int id)
+		public virtual void DeleteEntity(int id)
 		{
 			var entity = _repository.GetItemById(id);
 			_repository.DeleteItem(entity);
 		}
 
-		public IList<TEntity> GetAllItems(params Expression<Func<TEntity, object>>[] includeProperties)
+		public virtual IList<TEntity> GetAllItems(params Expression<Func<TEntity, object>>[] includeProperties)
 		{
 			var entities = _repository.GetAll();
 			if (includeProperties is not null)
@@ -39,12 +39,12 @@ namespace PermissionBasedAuthentication.Services
 			return entities.ToList();
 		}
 
-		public TEntity GetEntityById(int id)
+		public virtual TEntity GetEntityById(int id)
 		{
 			return _repository.GetItemById(id);
 		}
 
-		public void UpdateEntity(TEntity entity)
+		public virtual void UpdateEntity(TEntity entity)
 		{
 			_repository.UpdateItem(entity);
 		}
