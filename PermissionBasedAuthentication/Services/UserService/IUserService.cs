@@ -6,5 +6,6 @@ namespace PermissionBasedAuthentication.Services.UserService
 	public interface IUserService : IGenericService<User>
 	{
 		void CreateEntity(UserCreateVM request);
+		bool SignIn(string email, string password);
 	}
 }

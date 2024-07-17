@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using PermissionBasedAuthentication.Context;
 using PermissionBasedAuthentication.GenericRepositories;
 using PermissionBasedAuthentication.Services;
@@ -20,6 +21,23 @@ namespace PermissionBasedAuthentication.Extensions
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 			services.AddScoped<IUserService, UserService>();
+
+
+			services.AddHttpContextAccessor();
+
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+			{
+				var newCookie = new CookieBuilder();
+				newCookie.Name = "DynamicAuth";
+				options.Cookie.HttpOnly = true;
+				options.Cookie.SameSite = SameSiteMode.Strict;
+				options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+				options.LoginPath = "/Authenticate/Login";
+				options.LogoutPath = "/Authenticated/Logout";
+				//options.AccessDeniedPath = "/";
+				options.Cookie = newCookie;
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+			});
 
 			return services;
 		}

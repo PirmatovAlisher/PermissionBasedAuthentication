@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PermissionBasedAuthentication.Models.Entity;
 using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Controllers
 {
+	[Authorize]
 	public class ProductController : Controller
 	{
 		private readonly IGenericService<Product> _service;
