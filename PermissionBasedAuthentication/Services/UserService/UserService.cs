@@ -26,8 +26,7 @@ namespace PermissionBasedAuthentication.Services.UserService
 			bool passwordCheck = request.Password.Equals(request.ConfirmPassword);
 			if (!passwordCheck)
 			{
-				//Exception
-				return;
+				throw new Exception("Password does not match with Confirm password");
 			}
 
 			var user = _mapper.Map<User>(request);
@@ -65,6 +64,48 @@ namespace PermissionBasedAuthentication.Services.UserService
 			_contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
 
 			return true;
+
+		}
+
+		public void SignOut()
+		{
+			_contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+		}
+
+		public void UpdateEntity(UserUpdateVM request)
+		{
+			var user = _repository.GetAll().Where(x => x.Email.Equals(request.Email)).FirstOrDefault();
+			if (user == null)
+			{
+				throw new Exception("Email or Password is wrong");
+			}
+
+			var verifyPassword = new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password);
+
+			if (verifyPassword == PasswordVerificationResult.Failed)
+			{
+				throw new Exception("Email or Password is wrong");
+			}
+
+			var mappedUser = _mapper.Map<User>(request);
+
+			if (string.IsNullOrWhiteSpace(request.NewPassword))
+			{
+				mappedUser.PasswordHash = user.PasswordHash;
+				_repository.UpdateItem(mappedUser);
+				return;
+			}
+
+			if (!request.NewPassword.Equals(request.NewPasswordConfirm))
+			{
+				throw new Exception("New password does not match with Confirm password");
+			}
+
+			var newPasswordHash = HashMaker(user, request.NewPassword);
+
+			mappedUser.PasswordHash = newPasswordHash;
+
+			_repository.UpdateItem(mappedUser);
 
 		}
 

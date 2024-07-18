@@ -7,5 +7,7 @@ namespace PermissionBasedAuthentication.Services.UserService
 	{
 		void CreateEntity(UserCreateVM request);
 		bool SignIn(string email, string password);
+		void SignOut();
+		void UpdateEntity(UserUpdateVM request);
 	}
 }
