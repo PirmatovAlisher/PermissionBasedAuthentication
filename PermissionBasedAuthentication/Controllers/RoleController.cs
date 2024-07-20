@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PermissionBasedAuthentication.Models.Entity;
 using PermissionBasedAuthentication.Models.ViewModels.RoleVM;
+using PermissionBasedAuthentication.Models.ViewModels.UserRoleVM;
 using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Controllers

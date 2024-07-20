@@ -46,7 +46,7 @@ namespace PermissionBasedAuthentication.Services.UserService
 				UserId = user.Id
 			};
 
-			if (!user.UserRoles.Any())
+			if (user.UserRoles.Any())
 			{
 				user.UserRoles = new List<UserRole>();
 			}

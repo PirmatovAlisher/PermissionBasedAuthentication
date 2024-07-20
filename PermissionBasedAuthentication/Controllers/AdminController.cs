@@ -1,19 +1,37 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PermissionBasedAuthentication.GenericRepositories;
+using PermissionBasedAuthentication.Models.Entity;
+using PermissionBasedAuthentication.Models.ViewModels.UserVM;
+using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Controllers
 {
 	[Authorize]
 	public class AdminController : Controller
 	{
-		public IActionResult UserList()
+		private readonly IGenericService<User> _userService;
+		private readonly IMapper _mapper;
+
+		public AdminController(IGenericService<User> userService, IMapper mapper)
 		{
-			return View();
+			_userService = userService;
+			_mapper = mapper;
 		}
 
-		public IActionResult RemoveUser()
+		public IActionResult UserList()
 		{
-			return View();
+			var userList = _userService.GetAllItems().ToList();
+			var mappedUserList = _mapper.Map<List<UserListVM>>(userList);
+
+			return View(mappedUserList);
+		}
+
+		public IActionResult RemoveUser(int Id)
+		{
+			_userService.DeleteEntity(Id);
+			return RedirectToAction("UserList", "Admin");
 		}
 	}
 }

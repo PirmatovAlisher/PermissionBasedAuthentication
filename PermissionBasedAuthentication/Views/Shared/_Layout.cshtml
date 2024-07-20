@@ -32,7 +32,7 @@
 								   asp-action="EditUser" asp-route-id="@(User.Claims.Where(x => x.Type.Contains("identifier")).FirstOrDefault().Value)">Edit User</a>
 							</li>
 
-							@if (User.Claims.Any(x => x.Type == "Admin"))
+							@if (User.Claims.Any(x => x.Value == "Admin"))
 							{
 								<li class="nav-item">
 									<a class="btn btn-warning ms-2" asp-area="" asp-controller="Admin"
