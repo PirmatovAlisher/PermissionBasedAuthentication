@@ -11,13 +11,15 @@ namespace PermissionBasedAuthentication.Services.UserService
 {
 	public class UserService : GenericService<User>, IUserService
 	{
+		private readonly IGenericRepository<Role> _roleRepository;
 		private readonly IHttpContextAccessor _contextAccessor;
 		private readonly IMapper _mapper;
 
-		public UserService(IGenericRepository<User> repository, IMapper mapper, IHttpContextAccessor contextAccessor) : base(repository)
+		public UserService(IGenericRepository<User> repository, IMapper mapper, IHttpContextAccessor contextAccessor, IGenericRepository<Role> roleRepository) : base(repository)
 		{
 			_mapper = mapper;
 			_contextAccessor = contextAccessor;
+			_roleRepository = roleRepository;
 		}
 
 
@@ -31,6 +33,25 @@ namespace PermissionBasedAuthentication.Services.UserService
 
 			var user = _mapper.Map<User>(request);
 			user.PasswordHash = HashMaker(user, request.Password);
+
+			var memberRole = _roleRepository.GetAll().FirstOrDefault(x => x.RoleName.Equals("Member"));
+			if (memberRole == null)
+			{
+				throw new Exception("Role does not exist, contact with Admin");
+			}
+
+			var userRole = new UserRole()
+			{
+				RoleId = memberRole.Id,
+				UserId = user.Id
+			};
+
+			if (!user.UserRoles.Any())
+			{
+				user.UserRoles = new List<UserRole>();
+			}
+
+			user.UserRoles.Add(userRole);
 
 			_repository.CreateItem(user);
 
@@ -59,6 +80,11 @@ namespace PermissionBasedAuthentication.Services.UserService
 			};
 
 			// Add roles
+			foreach (var userRole in user.UserRoles)
+			{
+				var roleClaim = new Claim(ClaimTypes.Role, userRole.Role.RoleName);
+				claims.Add(roleClaim);
+			}
 
 			var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 			_contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));

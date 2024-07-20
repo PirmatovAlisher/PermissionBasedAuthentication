@@ -1,4 +1,6 @@
-﻿namespace PermissionBasedAuthentication.Models.ViewModels.UserVM
+﻿using PermissionBasedAuthentication.Models.Entity;
+
+namespace PermissionBasedAuthentication.Models.ViewModels.UserVM
 {
 	public class UserCreateVM
 	{
@@ -9,5 +11,7 @@
 		public string Password { get; set; }
 
 		public string ConfirmPassword { get; set; }
+
+		public ICollection<UserRole> UserRoles { get; set; }
 	}
 }

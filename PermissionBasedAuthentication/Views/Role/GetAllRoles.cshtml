@@ -1,0 +1,32 @@
+﻿@model List<RoleListVM>
+@{
+	ViewData["Title"] = "GetAllRoles";
+}
+
+<h1>Roles</h1>
+
+<br>
+<a class="btn btn-success" asp-controller="Role" asp-action="CreateRole">Create Role</a>
+<br>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Role Name</th>
+			<th scope="col">Manipulations</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Id</td>
+				<td>@item.RoleName</td>
+				<td>
+					<a class="btn btn-outline-secondary" asp-controller="Role" asp-action="UpdateRole" asp-route-id="@item.Id">Edit</a>
+					<a class="btn btn-outline-danger" asp-controller="Role" asp-action="DeleteRole" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

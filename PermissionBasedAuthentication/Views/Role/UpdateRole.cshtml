@@ -1,0 +1,15 @@
+﻿@model RoleUpdateVM
+@{
+	ViewData["Title"] = "UpdateRole";
+}
+
+<h1>Update Role</h1>
+
+<form asp-controller="Role" asp-action="UpdateRole" method="post">
+	<input type="hidden" asp-for="Id" />
+	<div class="mb-3">
+		<label asp-for="RoleName" class="form-label">Name</label>
+		<input asp-for="RoleName" type="text" class="form-control" placeholder="Enter a Role name">
+	</div>
+	<button class="btn btn-success">Submit</button>
+</form>
