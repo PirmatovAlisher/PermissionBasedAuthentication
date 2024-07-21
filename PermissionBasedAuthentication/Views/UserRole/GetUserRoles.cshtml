@@ -1,0 +1,33 @@
+﻿@model List<UserRoleListVM>
+@{
+	ViewData["Title"] = "GetUserRoles";
+}
+
+<h1>User Roles</h1>
+
+<br>
+@if (((List<RoleListVM>)ViewBag.Roles).Count > 0)
+{
+	<partial name="~/Views/UserRole/Partials/_AddRoleToUser.cshtml" model="new UserRoleCreateVM(){UserId = Model.FirstOrDefault()!.UserId}" />
+}
+<br>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Role Name</th>
+			<th scope="col">Remove Role From User</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Role.RoleName</td>
+				<td>
+					<a class="btn btn-outline-danger" asp-controller="UserRole" asp-action="RemoveRoleFromUser"
+					   asp-route-id="@item.Id" asp-route-userId="@item.User.Id">Remove</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

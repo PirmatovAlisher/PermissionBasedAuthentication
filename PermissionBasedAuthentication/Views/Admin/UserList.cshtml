@@ -1,6 +1,6 @@
 ﻿@model List<UserListVM>
 @{
-    ViewData["Title"] = "UserList";
+	ViewData["Title"] = "UserList";
 }
 
 <h1>Users</h1>
@@ -24,7 +24,7 @@
 				<td>@item.FullName</td>
 				<td>@item.Email</td>
 				<td>
-					<a class="btn btn-warning" asp-controller="Role" asp-action="GetAllRoles" asp-route-id="@item.Id">Roles</a>
+					<a class="btn btn-warning" asp-controller="UserRole" asp-action="GetUserRoles" asp-route-userId="@item.Id">Roles</a>
 				</td>
 				<td>
 					<a class="btn btn-danger" asp-controller="Admin" asp-action="RemoveUser" asp-route-id="@item.Id">Remove</a>
