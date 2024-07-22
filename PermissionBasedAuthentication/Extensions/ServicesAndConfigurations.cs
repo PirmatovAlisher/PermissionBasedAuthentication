@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PermissionBasedAuthentication.Context;
 using PermissionBasedAuthentication.GenericRepositories;
 using PermissionBasedAuthentication.Services;
+using PermissionBasedAuthentication.Services.ControllerNameService;
+using PermissionBasedAuthentication.Services.DomainService;
 using PermissionBasedAuthentication.Services.UserService;
 using System.Reflection;
 
@@ -21,6 +23,8 @@ namespace PermissionBasedAuthentication.Extensions
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IControllerNameService, ControllerNameService>();
+			services.AddScoped<IDomainService, DomainService>();
 
 
 			services.AddHttpContextAccessor();

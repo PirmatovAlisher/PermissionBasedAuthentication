@@ -22,6 +22,10 @@ namespace PermissionBasedAuthentication.Context
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }
 
+
+		public DbSet<ControllerName> ControllerNames { get; set; }
+		public DbSet<Domain> Domains { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

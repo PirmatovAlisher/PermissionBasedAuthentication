@@ -1,0 +1,31 @@
+﻿@model List<ControllerListVM>
+@{
+	ViewData["Title"] = "GetAllControllerList";
+}
+
+<h1>Controller List</h1>
+
+
+<br>
+<a class="btn btn-success" asp-controller="ControllerName" asp-action="RefreshList">Refresh List</a>
+<br>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Controller Name</th>
+			<th scope="col">Domain</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Name</td>
+				<td>
+					<a asp-controller="Domain" asp-action="GetAllListByControllerNameId" class="btn btn-secondary"
+					   asp-route-controllerId="@item.Id" asp-route-controllerName="@item.Name">Domain List</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

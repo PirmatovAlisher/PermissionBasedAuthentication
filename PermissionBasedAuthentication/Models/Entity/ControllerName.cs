@@ -1,12 +1,10 @@
 ﻿namespace PermissionBasedAuthentication.Models.Entity
 {
-	public class Role
+	public class ControllerName
 	{
 		public int Id { get; set; }
 
-		public string RoleName { get; set; }
-
-		public ICollection<UserRole> UserRoles { get; set; }
+		public string Name { get; set; }
 
 		public ICollection<Domain> Domains { get; set; }
 	}
