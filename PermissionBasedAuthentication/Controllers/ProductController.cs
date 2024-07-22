@@ -5,7 +5,7 @@ using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Controllers
 {
-	[Authorize]
+	[Authorize(Roles = "Member, Admin")]
 	public class ProductController : Controller
 	{
 		private readonly IGenericService<Product> _service;

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PermissionBasedAuthentication.Controllers
 {
-	[Authorize]
+	[Authorize(Roles = "Member, Admin")]
 	public class DashboardController : Controller
 	{
 		public IActionResult Index()

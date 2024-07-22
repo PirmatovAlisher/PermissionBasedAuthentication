@@ -1,4 +1,6 @@
-﻿namespace PermissionBasedAuthentication.Models.ViewModels.UserVM
+﻿using PermissionBasedAuthentication.Models.ViewModels.UserRoleVM;
+
+namespace PermissionBasedAuthentication.Models.ViewModels.UserVM
 {
 	public class UserListVM
 	{
@@ -7,5 +9,8 @@
 		public string FullName { get; set; }
 
 		public string Email { get; set; }
+
+		public ICollection<UserRoleListVM> UserRoles { get; set; }
+
 	}
 }

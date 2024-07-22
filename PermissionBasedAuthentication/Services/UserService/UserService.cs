@@ -100,7 +100,7 @@ namespace PermissionBasedAuthentication.Services.UserService
 
 		public void UpdateEntity(UserUpdateVM request)
 		{
-			var user = _repository.GetAll().Where(x => x.Email.Equals(request.Email)).FirstOrDefault();
+			var user = _repository.GetAll().Where(x => x.Id.Equals(request.Id)).FirstOrDefault();
 			if (user == null)
 			{
 				throw new Exception("Email or Password is wrong");

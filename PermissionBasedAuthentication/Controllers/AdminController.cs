@@ -8,7 +8,7 @@ using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Controllers
 {
-	[Authorize]
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
 		private readonly IGenericService<User> _userService;

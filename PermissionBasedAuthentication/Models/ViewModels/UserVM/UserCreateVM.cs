@@ -12,6 +12,6 @@ namespace PermissionBasedAuthentication.Models.ViewModels.UserVM
 
 		public string ConfirmPassword { get; set; }
 
-		public ICollection<UserRole> UserRoles { get; set; }
+		//public ICollection<UserRole> UserRoles { get; set; }
 	}
 }

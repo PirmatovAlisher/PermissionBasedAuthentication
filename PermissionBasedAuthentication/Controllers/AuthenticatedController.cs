@@ -6,7 +6,7 @@ using PermissionBasedAuthentication.Services.UserService;
 
 namespace PermissionBasedAuthentication.Controllers
 {
-
+	[Authorize(Roles = "Member, Admin")]
 	public class AuthenticatedController : Controller
 	{
 		private readonly IUserService _userService;
