@@ -24,6 +24,8 @@
 				<td>@item.RoleName</td>
 				<td>
 					<a class="btn btn-outline-secondary" asp-controller="Role" asp-action="UpdateRole" asp-route-id="@item.Id">Edit</a>
+					<a class="btn btn-outline-primary" asp-controller="Domain" asp-action="GetAllListByRole" 
+					asp-route-roleId="@item.Id">Controllers</a>
 					<a class="btn btn-outline-danger" asp-controller="Role" asp-action="DeleteRole" asp-route-id="@item.Id">Delete</a>
 				</td>
 			</tr>

@@ -1,0 +1,19 @@
+﻿@model DomainUpdateVM
+@{
+	ViewData["Title"] = "UpdateDomainRoleForController";
+}
+
+<h1>Update Domain Role for Controller</h1>
+<br />
+
+<form asp-controller="Domain" asp-action="UpdateDomainRoleForController" method="post">
+	<input type="hidden" asp-for="ControllerNameId" value="@Model.ControllerNameId" />
+	<input type="hidden" asp-for="ControllerNameForTitle" value="@Model.ControllerNameForTitle" />
+	<input type="hidden" asp-for="Id" value="@Model.Id" />
+
+	<div class="mb-3">
+		<select asp-for="RoleId" asp-items="@(new SelectList(Model.Roles, "Id", "RoleName"))" class="form-control"></select>
+	</div>
+
+	<button class="btn btn-success">Submit</button>
+</form>
