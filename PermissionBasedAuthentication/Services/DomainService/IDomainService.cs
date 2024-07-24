@@ -8,5 +8,6 @@ namespace PermissionBasedAuthentication.Services.DomainService
 		List<DomainListVM> GetAllDomainsByRoleId(int roleId);
 		List<DomainListVM> GetAllDomainsByControllerNameId(int controllerId);
 		DomainUpdateVM GetItemByModal(ControllerParamsVM model);
+		List<DomainListVM> GetAllDomainsByControllerName(string controllerName);
 	}
 }

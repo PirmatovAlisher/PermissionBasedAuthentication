@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PermissionBasedAuthentication.DynamicAuth;
 using PermissionBasedAuthentication.Models.ViewModels.UserVM;
 using PermissionBasedAuthentication.Services.UserService;
 
 namespace PermissionBasedAuthentication.Controllers
 {
-	[Authorize(Roles = "Member, Admin")]
+	[DynamicAuthorization]
 	public class AuthenticatedController : Controller
 	{
 		private readonly IUserService _userService;

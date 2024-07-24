@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PermissionBasedAuthentication.Models.Entity;
 using PermissionBasedAuthentication.Models.ViewModels.DomainVM;
@@ -9,13 +10,16 @@ using PermissionBasedAuthentication.Services.DomainService;
 
 namespace PermissionBasedAuthentication.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	public class DomainController : Controller
 	{
 		private readonly IDomainService _domainService;
 		private readonly IGenericService<Role> _roleService;
 		private readonly IMapper _mapper;
 
-		public DomainController(IDomainService domainService, IGenericService<Role> roleService, IMapper mapper)
+		public DomainController(IDomainService domainService,
+								IGenericService<Role> roleService,
+								IMapper mapper)
 		{
 			_domainService = domainService;
 			_roleService = roleService;
@@ -38,7 +42,27 @@ namespace PermissionBasedAuthentication.Controllers
 		public IActionResult AddDomainRoleToController(ControllerParamsVM model)
 		{
 			var roleList = _roleService.GetAllItems().ToList();
-			var mappedRoleList = _mapper.Map<List<RoleListVM>>(roleList);
+			//start
+			var domainListWithRoles = _domainService.GetAllDomainsByControllerNameId(model.ControllerId);
+			var availableRoles = new List<Role>();
+
+			foreach (var role in roleList)
+			{
+				if (!domainListWithRoles.Any(x => x.Role.RoleName == role.RoleName))
+				{
+					availableRoles.Add(role);
+				}
+			}
+			if(availableRoles.Count == 0)
+			{
+				throw new Exception("There is no more available role to assign");
+			}
+
+
+
+			//end
+			//var mappedRoleList = _mapper.Map<List<RoleListVM>>(roleList);
+			var mappedRoleList = _mapper.Map<List<RoleListVM>>(availableRoles);
 
 			return View(new DomainCreateVM
 			{

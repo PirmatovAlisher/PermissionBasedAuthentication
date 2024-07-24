@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PermissionBasedAuthentication.DynamicAuth;
 using PermissionBasedAuthentication.Models.Entity;
 using PermissionBasedAuthentication.Services;
 
 namespace PermissionBasedAuthentication.Controllers
 {
-	[Authorize(Roles = "Member, Admin")]
+	[DynamicAuthorization]
 	public class ProductController : Controller
 	{
 		private readonly IGenericService<Product> _service;

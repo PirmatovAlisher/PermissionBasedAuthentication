@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PermissionBasedAuthentication.Models.ViewModels.ControllerVM;
 using PermissionBasedAuthentication.Services.ControllerNameService;

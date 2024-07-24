@@ -39,5 +39,12 @@ namespace PermissionBasedAuthentication.Services.DomainService
 			mappedDomainRole.ControllerNameForTitle = model.ControllerName;
 			return mappedDomainRole;
 		}
+
+		public List<DomainListVM> GetAllDomainsByControllerName(string controllerName)
+		{
+			var domainList = GetAllItems().Where(x => x.ControllerName.Name == controllerName).ToList();
+
+			return _mapper.Map<List<DomainListVM>>(domainList);
+		}
 	}
 }
